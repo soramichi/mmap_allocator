@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../mmap_allocator.h"
+#include "../../mmap_allocator.h"
 
 #define INDEX(i,j,n) ((i) * (n) + (j))
 
@@ -27,9 +27,9 @@ int main(int argc, char* argv[]){
   C = malloc(sizeof(double) * n);
   */
 
-  A = mm_malloc(sizeof(double) * n * n);
-  B = mm_malloc(sizeof(double) * n);
-  C = mm_malloc(sizeof(double) * n);
+  A = mm_malloc_normal(sizeof(double) * n * n);
+  B = mm_malloc_normal(sizeof(double) * n);
+  C = mm_malloc_normal(sizeof(double) * n);
   
   // init
   for(i=0; i < n; i++) {

@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include "mmap_allocator.h"
+#include "../../mmap_allocator.h"
 
 int main() {
   mm_init();
   
-  int* ptr = (int*)mm_malloc(sizeof(int) * 8);
+  int* ptr = (int*)mm_malloc_normal(sizeof(int) * 8);
   int i;
 
   ptr[0] = 1;
