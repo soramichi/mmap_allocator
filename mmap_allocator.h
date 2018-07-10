@@ -3,8 +3,6 @@
 
 #include <stdio.h> // size_t
 
-void mm_init();
-
 void* mm_malloc_normal(size_t size);
 void* mm_calloc_normal(size_t nmemb, size_t size);
 void* mm_realloc_normal(void* ptr, size_t size);

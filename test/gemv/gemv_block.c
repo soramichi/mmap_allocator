@@ -10,8 +10,6 @@ int main(int argc, char* argv[]){
   int i, j, ii, jj;
   int b;
 
-  mm_init();
-
   if(argc < 3) {
     fprintf(stderr, "Usage: %s n\n", argv[0]);
     return 1;

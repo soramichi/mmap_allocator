@@ -38,8 +38,8 @@ static void do_mm_init(Handler* _handler){
     fd = open("/dev/zero", O_RDONLY);
     _handler->memory = mmap(NULL, max_size, PROT_WRITE , _handler->mmap_flags, fd, 0);
 
-    perror("");
-    printf("_handler.memory: %p\n", _handler->memory);
+    // XXX: No error check here because giving MAP_APPROXIMATE in a real machine
+    // always returns MAP_FAILED, but it is as intended.
 
     close(fd);
   }
@@ -53,7 +53,6 @@ static void* do_mm_malloc(Handler* _handler, size_t size){
     exit(1);
   }
 
-  printf("do_mm_malloc _handler.memory: %p\n", _handler->memory);
   void* mem = _handler->memory + _handler->total_size;
   _handler->total_size += size;
 
@@ -81,8 +80,8 @@ static void* do_mm_calloc(Handler* _handler, size_t nmemb, size_t size){
   return mem;
 }
 
-/******** public functions  ********************************************/
-void mm_init() {
+/******** init (automatically called before the `main') *****************/
+static void __attribute__((constructor)) mm_init() {
   _handler_normal.mmap_flags = MAP_PRIVATE;
   _handler_approximate.mmap_flags = MAP_PRIVATE | MAP_APPROXIMATE;
 
@@ -90,6 +89,7 @@ void mm_init() {
   do_mm_init(&_handler_approximate);
 }
 
+/******** public functions  ********************************************/
 void* mm_malloc_normal(size_t size) {
   return do_mm_malloc(&_handler_normal, size);
 }
