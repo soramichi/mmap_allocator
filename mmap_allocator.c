@@ -11,7 +11,7 @@
 
 static const int MAP_APPROXIMATE = 4;
 
-static const size_t max_size = 1024 * 1024 * 64; // 64 MB
+static const size_t max_size = 1024 * 1024 * 32; // 32 MB
 
 typedef struct {
   size_t capacity, current_used, total_size;
@@ -83,10 +83,12 @@ static void* do_mm_calloc(Handler* _handler, size_t nmemb, size_t size){
 /******** init (automatically called before the `main') *****************/
 static void __attribute__((constructor)) mm_init() {
   _handler_normal.mmap_flags = MAP_PRIVATE;
-  _handler_approximate.mmap_flags = MAP_PRIVATE | MAP_APPROXIMATE;
-
   do_mm_init(&_handler_normal);
+
+#if defined(USE_APPROXIMATE)
+  _handler_approximate.mmap_flags = MAP_PRIVATE | MAP_APPROXIMATE;
   do_mm_init(&_handler_approximate);
+#endif
 }
 
 /******** public functions  ********************************************/
