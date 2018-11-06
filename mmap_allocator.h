@@ -14,6 +14,7 @@ void* mm_realloc_approximate(void* ptr, size_t size);
 void mm_free_approximate(void* ptr);
 
 // c_region and a_region must be on the cache!! (how can we guarantee this??)
+// -O3 puts `__index' and `__target' onto registers thus there is no extra memory ld/st for them.
 #define fetch(c_value, c_ptr, c_region, a_region) do {	\
     int __index = ((c_ptr) - (c_region));		\
     typeof(a_region) __target = (a_region) + __index;	\
