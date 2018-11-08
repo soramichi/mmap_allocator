@@ -25,4 +25,20 @@ void mm_free_approximate(void* ptr);
     c_value = *(c_ptr);					\
   } while(0)
 
+#define fetch2(c_value, c_ptr, c_region, a_region, a_region2) do {	\
+    int __index  = ((c_ptr) - (c_region));		\
+    typeof(a_region) __target = (a_region) + __index;	\
+    __asm__ __volatile__("prefetcht0 (%0);"		\
+                         :		      		\
+                         :"r"(__target)			\
+                        );				\
+    typeof(a_region) __target2 = (a_region2) + __index;	\
+    __asm__ __volatile__("prefetcht0 (%0);"		\
+                         :		      		\
+                         :"r"(__target2)		\
+                        );				\
+    c_value = *(c_ptr);					\
+  } while(0)
+
+
 #endif
