@@ -11,7 +11,7 @@
 
 static const int MAP_APPROXIMATE = 4;
 
-static const size_t max_size = 1024 * 1024 * 32; // 32 MB
+static const size_t max_size = 1024 * 1024 * 256;
 
 typedef struct {
   size_t capacity, current_used, total_size;
