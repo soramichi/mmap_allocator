@@ -22,6 +22,13 @@ void mm_free_approximate(void* ptr);
     c_value = *(c_ptr);					\
   } while(0)
 
+#define fetch_new(c_value, a_value, c_ptr, c_region, a_region) do {	\
+    int __index = ((c_ptr) - (c_region));				\
+    typeof(a_region) __target = (a_region) + __index;			\
+    c_value = *(c_ptr);							\
+    a_value = *(__target);						\
+  } while(0)
+
 #define fetch2(c_value, c_ptr, c_region, a_region, a_region2) do {	\
     int __index  = ((c_ptr) - (c_region));				\
     typeof(a_region) __target = (a_region) + __index;			\
