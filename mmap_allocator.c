@@ -43,8 +43,6 @@ static void do_mm_init(Handler* _handler){
 
     close(fd);
   }
-
-  srand(time(NULL));
 }
 
 static void* do_mm_malloc(Handler* _handler, size_t size){
